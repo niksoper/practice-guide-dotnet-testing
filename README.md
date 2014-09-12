@@ -1,6 +1,6 @@
 # .NET Testing Practice Guide
 
-*Opinionated .NET Testing practice guide by [@devdigital](//twitter/devdigital)*
+*Opinionated .NET Testing practice guide by [@devdigital](//twitter.com/devdigital)*
 
 ## Table of Contents
 
@@ -21,56 +21,56 @@ Your tests have to be maintained just as much as your production code. Code is m
 To make your test code maintainable, apply the same principles of cleanliness to your test code that you do to your production code. The includes following consistent style rules (such as those provided by [StyleCop](//stylecop.codeplex.com)).
 
 **Avoid**
-   ```csharp   
-   using Xunit;
-   using MyLibrary;
+```csharp   
+using Xunit;
+using MyLibrary;
 
-   public class tsts
+public class tsts
+{
+   [Fact]
+   public void test()
    {
-       [Fact]
-       public void test()
-       {
-           PasswordPolicy pp = new PasswordPolicy(6);
-           Assert.False(pp.IsValid("asd"));
-       }
+      PasswordPolicy pp = new PasswordPolicy(6);
+      Assert.False(pp.IsValid("asd"));
    }
-   ```
+}
+```
 
 **Recommended**
-   ```csharp
-   // --------------------------------------------------------------------------------------------------------------------
-   // <copyright file="PasswordPolicyTests.cs" company="XXX Company">
-   //   Copyright (c) XXX Company. All rights reserved.
-   // </copyright>
-   // <summary>
-   //   Defines the PasswordPolicyTests type.
-   // </summary>
-   // --------------------------------------------------------------------------------------------------------------------
+```csharp
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="PasswordPolicyTests.cs" company="XXX Company">
+//   Copyright (c) XXX Company. All rights reserved.
+// </copyright>
+// <summary>
+//   Defines the PasswordPolicy tests.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-   namespace MyApplication.Security.Domain.UnitTests
+namespace MyApplication.Security.Domain.UnitTests
+{
+   using MyLibrary;
+
+   using Xunit;
+
+   /// <summary>
+   /// Password policy tests.
+   /// </summary>
+   public class PasswordPolicyTests
    {
-      using MyLibrary;
-
-      using Xunit;
-
       /// <summary>
-      /// Password policy tests.
+      /// A password that violates the minimum length requirements should fail the password policy.
       /// </summary>
-      public class PasswordPolicyTests
+      [Fact]
+      public void MinimumLengthViolatedShouldReturnFalse()
       {
-          /// <summary>
-          /// A password that violates the minimum length requirements should fail the password policy.
-          /// </summary>
-          [Fact]
-          public void MinimumLengthViolatedShouldReturnFalse()
-          {
-              var passwordPolicy = new PasswordPolicy(minimumLength: 6);
-              var result = passwordPolicy.IsValid("asd");
-              Assert.False(result);
-          }
-       }
-    }
-   ```
+         var passwordPolicy = new PasswordPolicy(minimumLength: 6);
+         var result = passwordPolicy.IsValid("asd");
+         Assert.False(result);
+      }
+   }
+}
+```
 
    - **One file Per Test Fixture**
    - **One Test Fixture per System Under Test (SUT)**
