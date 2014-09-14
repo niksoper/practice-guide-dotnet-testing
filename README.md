@@ -14,7 +14,7 @@
 ### Test Code is Production Code
     Your test code should receive the same love and attention as your production code.
 
-   *Why?*
+*Why?*
 
 Your tests have to be maintained just as much as your production code. Code is much harder to read than it is to write. This can be particularly true of test code. 
 
@@ -38,14 +38,14 @@ public class tsts
 
 **Recommended**
 ```csharp
-// -----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------
 // <copyright file="PasswordPolicyTests.cs" company="XXX Company">
 //   Copyright (c) XXX Company. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the PasswordPolicy tests.
 // </summary>
-// -----------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------
 
 namespace MyApplication.Security.Domain.UnitTests
 {
@@ -59,7 +59,8 @@ namespace MyApplication.Security.Domain.UnitTests
    public class PasswordPolicyTests
    {
       /// <summary>
-      /// A password that violates the minimum length requirements should fail the password policy.
+      /// A password that violates the minimum length requirements 
+      /// should fail the password policy.
       /// </summary>
       [Fact]
       public void MinimumLengthViolatedShouldReturnFalse()
@@ -72,8 +73,13 @@ namespace MyApplication.Security.Domain.UnitTests
 }
 ```
 
-   - **One file Per Test Fixture**
-   - **One Test Fixture per System Under Test (SUT)**
+### One Test Fixture Per System Under Test (SUT)
+   
+
+### One file Per Test Fixture
+    
+
+    
    - **Consistent Naming**
    - 3 part naming
    - or Should naming
@@ -104,3 +110,11 @@ namespace MyApplication.Security.Domain.UnitTests
 ## Unit Tests
 
 - **FIRST (Fast, Isolated, Repeatable, Self-verifying, Timely)**
+
+## Integration Tests
+
+Coming soon
+
+## Acceptance Tests
+
+Coming soon
