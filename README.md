@@ -80,12 +80,32 @@ namespace MyApplication.Security.Domain.UnitTests
 
 Spreading tests for a single System Under Test (SUT) over many test fixtures makes it harder to locate tests for the purposes of maintainance, or to see if tests already exist for a SUT when developing new tests.
 
-Likewise, testing multiple SUTs under a single test fixture violates the [Single Responsibility Principle (SRP)](//en.wikipedia.org/wiki/Single_responsibility_principle)).
+Likewise, testing multiple SUTs under a single test fixture violates the [Single Responsibility Principle (SRP)](//en.wikipedia.org/wiki/Single_responsibility_principle).
    
 
 ### One file Per Test Fixture
-   
+    Use one file per text fixture.
     
+*Why?*
+
+Just as StyleCop rule [SA1402](//www.stylecop.com/docs/SA1402.html) promotes the standard of one class per C# file, the same should be applied to test fixture classes.
+
+If you have more than one test fixture per file, then it takes a greater amount of time to reason about where a set of tests for a particular SUT will be located.
+
+### Group Test Types Per Project
+    Have each test project contain only one type of test (unit, integration, acceptance)
+
+*Why?*
+
+References, easier to locate
+    
+### Project Postfix Based On Test Type
+    Use an appropriate postfix for your test project names based on the type of tests they contain.
+
+*Why?*
+
+If you use a postfix such as .UnitTests, .IntegrationTests, or .AcceptanceTests based on the type of tests
+   - .UnitTests, .IntegrationTests, .AcceptanceTests
    - **Consistent Naming**
    - 3 part naming
    - or Should naming
@@ -106,8 +126,6 @@ Likewise, testing multiple SUTs under a single test fixture violates the [Single
    - **new is Glue**
    - breaks the DIP
    - **Setup and Teardown with the Test**
-   - **Project postfix for each type of Test**
-   - .UnitTests, .IntegrationTests, .AcceptanceTests
    - **Cyclomatic Complexity**
    - of 1
    - **Favour Composition over Inheritence**
