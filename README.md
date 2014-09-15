@@ -16,7 +16,7 @@
 
 *Why?*
 
-Your tests have to be maintained just as much as your production code. Code is much harder to read than it is to write. This can be particularly true of test code. 
+Your tests have to be maintained just as much as your production code. Developers spend significantly more time reading code than they do writing. The easier it is to read existing code, the easier it is to maintain. Additionally, less time can be spent reading code, and more time can be spent writing new code. 
 
 To make your test code maintainable, apply the same principles of cleanliness to your test code that you do to your production code. The includes following consistent style rules (such as those provided by [StyleCop](//stylecop.codeplex.com)).
 
@@ -74,11 +74,17 @@ namespace MyApplication.Security.Domain.UnitTests
 ```
 
 ### One Test Fixture Per System Under Test (SUT)
+    Group related tests for a System Under Test (SUT) under a single test fixture.
+   
+*Why?*
+
+Spreading tests for a single System Under Test (SUT) over many test fixtures makes it harder to locate tests for the purposes of maintainance, or to see if tests already exist for a SUT when developing new tests.
+
+Likewise, testing multiple SUTs under a single test fixture violates the [Single Responsibility Principle (SRP)](//en.wikipedia.org/wiki/Single_responsibility_principle)).
    
 
 ### One file Per Test Fixture
-    
-
+   
     
    - **Consistent Naming**
    - 3 part naming
