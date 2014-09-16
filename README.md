@@ -117,7 +117,12 @@ This is important for both developers and the build server, where for example yo
 
 It's important that your test fixtures are named after the SUT that they are testing. For example, if your System Under Test is PasswordPolicy, then it follows that an appropriate test fixture name would be PasswordPolicyTests. This makes it easy for a developer to reason about where to locate tests for a particular SUT.
 
-*SystemUnderTest*Tests
+```csharp
+public class [SystemUnderTest]Tests
+{
+   ...
+}
+```
 
 Likewise, the names of your test methods should describe the test they are performing. This is important for a developer to know what the test is attempting to do, and when a test fails within a build environment, then the developer can reason about what change may have caused the regression based on the test name.
 
@@ -154,7 +159,7 @@ public void Subject_Scenario_Result()
 
 The issue with 3 part naming is two fold - firstly and most importantly, it may not be easy to come up with a name for each part for particular types of tests. 
 
-For example, you may have a unit test that ensures that your type is assignable from a known interface. In this case, coming up with a name for the UnitOfWork part could be difficult. It may be that the UnitOfWork name becomes the SUT itself, in which case there's a duplication that the test name already describes something covered by the test fixture name.
+For example, you may have a unit test that ensures that your SUT is assignable from a known interface. In this case, coming up with a name for the UnitOfWork part could be difficult. It may be that the UnitOfWork name becomes the SUT itself, in which case there's a duplication that the test name already describes something covered by the test fixture name.
 
 Secondly, you may not be comfortable using underscores within your method names. If you're using a refactoring tool such as ReSharper, you'll likely to get a warning about the method name not matching ReSharper's default configuration.
 
@@ -169,30 +174,77 @@ public void WhenPasswordIsBelowMinimumIsValidShouldReturnFalse()
 This naming style can become difficult to read if the description is too long, so try to describe the work the test is doing in a clear but succinct fashion. 
 
 ### Favour Good Test Names over Assert Messages 
+    Descriptive test names are more valuable than assert messages.
    
 TODO
 
-   - **Comment your Code**
-   - Use comments to provide higher level insight to the test
-   - **Code is a Burdon**
-   - 16 lines or less
-   - **Consistent Format**
-   - Arrange, Act, Assert
-   - **One Assertion per Test**
-   - breaks the SRP
-   - **DAMP**
-   - Descriptive and Meaningful Phrases
-   - **Favour violating the DRY principle over violating Law of Demeter**
-   - Shouldn't violate the Principle of Least Knowledge (POLA) even if it means violating the DRY principle
-   - **Clean Asserts**
-   - Assert.Equal(expected, result)
-   - **new is Glue**
-   - breaks the DIP
-   - **Setup and Teardown with the Test**
-   - **Cyclomatic Complexity**
-   - of 1
-   - **Favour Composition over Inheritence**
-   - don't use inhertience in test fixture classes
+### Consistent Format
+    Be consistent in the format of your tests.
+
+#### Arrange, Act, Assert
+
+TODO
+
+#### Four Phase Test
+
+TODO
+
+### Clean Asserts
+    Your test's expected behviour should be obvious.
+   
+Assert.Equal(expected, result)
+
+TODO
+
+### Comment your Code
+    Use comments to provide higher level insight to the test.
+    
+### Code is a Burdon
+    Keep your tests small yet readable.
+    
+16 lines or less
+
+TODO
+   
+### Follow the DAMP (Descriptive and Meaningful Phrases) Principal 
+
+TODO   
+
+### One Assertion per Test
+    Each test should test one thing, and test is well.
+
+- having more than one assert per test breaks the SRP
+    
+TODO
+
+### Cyclomatic Complexity
+    Your tests should have a cycolmatic complexity of one.
+
+TODO
+
+### 'new' is Glue
+    Avoid the use of 'new' within your tests.
+
+*Why?*
+
+Using *new* within your tests violates the [Dependency Inversion Principle (DIP)](//en.wikipedia.org/wiki/Dependency_inversion_principle).
+   
+TODO
+
+### Setup and Teardown with the Test
+    Put all setup and teardown required by the test with the test itself.
+
+TODO
+
+### Favour violating the DRY principle over violating Law of Demeter
+    You shouldn't violate the Principle of Least Knowledge (POLA) even if it means violating the DRY principle.
+
+TODO
+
+### Favour Composition over Inheritence
+    Don't use inhertience in test fixture classes.
+    
+TODO
 
 ## Unit Tests
 
