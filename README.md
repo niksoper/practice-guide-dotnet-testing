@@ -84,7 +84,7 @@ Likewise, testing multiple SUTs under a single test fixture violates the [Single
    
 
 ### One file Per Test Fixture
-    Use one file per text fixture.
+    Use one file per test fixture.
     
 *Why?*
 
@@ -93,22 +93,85 @@ Just as StyleCop rule [SA1402](//www.stylecop.com/docs/SA1402.html) promotes the
 If you have more than one test fixture per file, then it takes a greater amount of time to reason about where a set of tests for a particular SUT will be located.
 
 ### Group Test Types Per Project
-    Have each test project contain only one type of test (unit, integration, acceptance)
+    Create a test project for each type of test (unit, integration, acceptance)
 
 *Why?*
 
-References, easier to locate
+If you group tests based on their type into separate project, then your likely to have different structures and references per test type. For example, an integration test may need to write to a database, in which case you may have references to an ORM or a folder for database helper classes. 
+
+Your acceptance tests may be written as specs, so would require a different folder name, and may require a reference to an acceptance testing framework such as [SpecFlow](//www.specflow.org/). If a single project contained different types of tests, then you would have to carry those dependencies for all types of tests along with a single project.
     
 ### Project Postfix Based On Test Type
     Use an appropriate postfix for your test project names based on the type of tests they contain.
 
 *Why?*
 
-If you use a postfix such as .UnitTests, .IntegrationTests, or .AcceptanceTests based on the type of tests
-   - .UnitTests, .IntegrationTests, .AcceptanceTests
-   - **Consistent Naming**
-   - 3 part naming
-   - or Should naming
+If you use a postfix such as *.UnitTests*, *.IntegrationTests*, or *.AcceptanceTests* based on the type of tests that project contains, then it's easier to locate a particular type of test. 
+
+This is important for both developers and the build server, where for example you can configure your build server to only run tests in *.IntegrationTests* and *.AcceptanceTests* projects overnight, where as run *.UnitTests* both on commit and overnight.
+
+### Use Consistent Naming
+    Be consistent in naming your test methods and fixtures. Define and follow a standard.
+
+*Why?*
+
+It's important that your test fixtures are named after the SUT that they are testing. For example, if your System Under Test is PasswordPolicy, then it follows that an appropriate test fixture name would be PasswordPolicyTests. This makes it easy for a developer to reason about where to locate tests for a particular SUT.
+
+*SystemUnderTest*Tests
+
+Likewise, the names of your test methods should describe the test they are performing. This is important for a developer to know what the test is attempting to do, and when a test fails within a build environment, then the developer can reason about what change may have caused the regression based on the test name.
+
+There are two popular standards for good test names:
+   
+#### 3 part naming
+
+Using a three part name for the test tells you what you are testing, the condition you are testing under, and the expected behaviour:
+
+```csharp
+public void UnitOfWork_StateUnderTest_ExpectedBehavior()
+{
+   ...
+}
+```
+
+Here, UnitOfWork is the method on the SUT that you are testing, for example a PasswordPolicy type may have an IsValid method, so a 3 part unit test name may look like:
+
+```csharp
+public void IsValid_PasswordBelowMinimum_ReturnsFalse()
+{
+}
+```
+
+An alternative description you may see is subject, scenario, and result, but it's describing the same concept:
+
+```csharp
+public void Subject_Scenario_Result()
+{
+}
+```
+
+#### Should naming
+
+The issue with 3 part naming is two fold - firstly and most importantly, it may not be easy to come up with a name for each part for particular types of tests. 
+
+For example, you may have a unit test that ensures that your type is assignable from a known interface. In this case, coming up with a name for the UnitOfWork part could be difficult. It may be that the UnitOfWork name becomes the SUT itself, in which case there's a duplication that the test name already describes something covered by the test fixture name.
+
+Secondly, you may not be comfortable using underscores within your method names. If you're using a refactoring tool such as ReSharper, you'll likely to get a warning about the method name not matching ReSharper's default configuration.
+
+An alternative approach, and one that should be favoured if you are unclear about your naming strategy, is to use 'should' naming. In this approach, you use a single long descriptive name for your test, using 'should' in the description to define the expected behaviour:
+
+```csharp
+public void WhenPasswordIsBelowMinimumIsValidShouldReturnFalse()
+{
+}
+```
+
+This naming style can become difficult to read if the description is too long, so try to describe the work the test is doing in a clear but succinct fashion. 
+
+### Favour Good Test Names over Assert Messages 
+   
+TODO
+
    - **Comment your Code**
    - Use comments to provide higher level insight to the test
    - **Code is a Burdon**
