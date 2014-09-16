@@ -216,10 +216,14 @@ TODO
 ### Comment your Code
     Use comments to provide higher level insight to the test.
     
-### Code is a Burdon
+### Code is a Burden
     Keep your tests small yet readable.
     
-16 lines or less
+*Why?*
+
+Every line of code you write is a line of code that needs to be read, understood, and maintained. You should attempt to minimise the number of lines of code per test, but not at the expense of readability.
+
+A good approach is to set yourself a theoritical maximum, for example 16 lines or less. If your test becomes longer than your maximum, then it's a sign that your test is either has a complex arrangment phase that could be simplified, or is violating the single assert per test rule.
 
 TODO
    
