@@ -117,8 +117,22 @@ This is important for both developers and the build server, where for example yo
 
 It's important that your test fixtures are named after the SUT that they are testing. For example, if your System Under Test is PasswordPolicy, then it follows that an appropriate test fixture name would be PasswordPolicyTests. This makes it easy for a developer to reason about where to locate tests for a particular SUT.
 
+You should define and adopt a standard naming convention for your test fixture classes and your test methods. An appropriate standard for test fixtures is:
+
+    [SystemUnderTest]Tests
+
+**Avoid**
 ```csharp
-public class [SystemUnderTest]Tests
+public class Tests
+{
+   ...
+}
+```
+
+**Recommended**
+
+```csharp
+public class PasswordPolicyTests
 {
    ...
 }
@@ -144,6 +158,7 @@ Here, UnitOfWork is the method on the SUT that you are testing, for example a Pa
 ```csharp
 public void IsValid_PasswordBelowMinimum_ReturnsFalse()
 {
+   ...
 }
 ```
 
@@ -152,6 +167,7 @@ An alternative description you may see is subject, scenario, and result, but it'
 ```csharp
 public void Subject_Scenario_Result()
 {
+   ...
 }
 ```
 
@@ -168,6 +184,7 @@ An alternative approach, and one that should be favoured if you are unclear abou
 ```csharp
 public void WhenPasswordIsBelowMinimumIsValidShouldReturnFalse()
 {
+   ...
 }
 ```
 
