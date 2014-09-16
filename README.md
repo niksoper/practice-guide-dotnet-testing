@@ -171,7 +171,7 @@ public void Subject_Scenario_Result()
 }
 ```
 
-#### Should naming
+#### *Should* naming
 
 The issue with 3 part naming is two fold - firstly and most importantly, it may not be easy to come up with a name for each part for particular types of tests. 
 
@@ -227,6 +227,11 @@ A good approach is to set yourself a theoritical maximum, for example **16 lines
 
 TODO
    
+### Selective Testing
+    Be selective in your testing.
+    
+TODO
+   
 ### Follow the DAMP (Descriptive and Meaningful Phrases) Principal 
 
 TODO   
@@ -234,9 +239,39 @@ TODO
 ### One Assertion per Test
     Each test should test one thing, and test it well.
 
-- having more than one assert per test breaks the SRP
-    
-TODO
+Each test should have a single *Assert* statement. If your test method has more than one assertion, then it is likely to be violating the [Single Responsibility Principle (SRP)](//en.wikipedia.org/wiki/Single_responsibility_principle).
+
+Additionally, if one of the asserts fails, then the execution of the test method stops. This means that subsequent assertions are not tested, and further regressions could be missed.
+
+Note that multiple asserts could aid readibility in some edge cases, but in the majority of circumstances you can avoid the use of multiple asserts.
+
+**Avoid**
+
+```csharp
+[Fact]
+public void ReverseShouldReturnReversedCollection()
+{
+   var collectionReverser = new CollectionReverser();
+   var result = collectionReverser.Reverse(new[] { "one", "two", "three" });
+   Assert.Equal(3, result.Length);
+   Assert.Equal("three", result[0]);
+   Assert.Equal("two", result[1]);
+   Assert.Equal("one", result[2]);
+}
+```
+
+**Recommended**
+
+```csharp
+[Fact]
+public void ReverseShouldReturnReversedCollection()
+{
+   var collectionReverser = new CollectionReverser();
+   var result = collectionReverser.Reverse(new[] { "one", "two", "three" });            
+   var expected = new[] { "three", "two", "one" };
+   Assert.Equal(expected, result);
+}
+```
 
 ### Cyclomatic Complexity
     Your tests should have a cycolmatic complexity of one.
