@@ -232,7 +232,7 @@ TODO
 TODO   
 
 ### One Assertion per Test
-    Each test should test one thing, and test is well.
+    Each test should test one thing, and test it well.
 
 - having more than one assert per test breaks the SRP
     
