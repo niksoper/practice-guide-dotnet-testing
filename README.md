@@ -206,12 +206,37 @@ TODO
 
 TODO
 
-### Clean Asserts
-    Your test's expected behviour should be obvious.
-   
-Assert.Equal(expected, result)
+### Avoid Marking Your Test Format With Comments
 
 TODO
+
+**Avoid**
+```csharp
+[Fact]
+public void MinimumLengthViolatedShouldReturnFalse()
+{
+   // Arrange
+   var passwordPolicy = new PasswordPolicy(minimumLength: 6);
+   
+   // Act
+   var result = passwordPolicy.IsValid("asd");
+   
+   // Assert
+   Assert.False(result);
+}
+```
+
+**Recommended**
+
+```csharp
+[Fact]
+public void MinimumLengthViolatedShouldReturnFalse()
+{
+   var passwordPolicy = new PasswordPolicy(minimumLength: 6);
+   var result = passwordPolicy.IsValid("asd");
+   Assert.False(result);
+}
+```
 
 ### Comment your Code
     Use comments to provide higher level insight to the test.
@@ -273,6 +298,13 @@ public void ReverseShouldReturnReversedCollection()
 }
 ```
 
+### Clean Asserts
+    Your test's expected behviour should be obvious.
+   
+Assert.Equal(expected, result)
+
+TODO
+
 ### Cyclomatic Complexity
     Your tests should have a cycolmatic complexity of one.
 
@@ -285,6 +317,10 @@ TODO
 
 Using *new* within your tests violates the [Dependency Inversion Principle (DIP)](//en.wikipedia.org/wiki/Dependency_inversion_principle).
    
+TODO
+
+### Avoid Explicit Anonymous Data
+
 TODO
 
 ### Setup and Teardown with the Test
