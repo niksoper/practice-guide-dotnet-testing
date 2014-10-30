@@ -97,7 +97,7 @@ If you have more than one test fixture per file, then it takes a greater amount 
 
 *Why?*
 
-If you group tests based on their type into separate project, then your likely to have different structures and references per test type. For example, an integration test may need to write to a database, in which case you may have references to an ORM or a folder for database helper classes. 
+If you group tests based on their type into separate projects, then you're likely to have different structures and references per test type. For example, an integration test may need to write to a database, in which case you may have references to an ORM or a folder for database helper classes. 
 
 Your acceptance tests may be written as specs, so would require a different folder name, and may require a reference to an acceptance testing framework such as [SpecFlow](//www.specflow.org/). If a single project contained different types of tests, then you would have to carry those dependencies for all types of tests along with a single project.
     
